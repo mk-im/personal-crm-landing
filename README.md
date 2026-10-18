@@ -5,14 +5,14 @@
 ## Как запустить
 
 1. `pnpm install`
-2. Скопируйте `.env.example` в `.env` и впишите адрес приложения: `PUBLIC_APP_URL=https://crm.space`
+2. Скопируйте `.env.example` в `.env`. Кнопки ведут на приложение: `PUBLIC_APP_URL=https://app.xn--l1ahr.space` (это [app.црм.space](https://app.црм.space)).
 3. `pnpm dev` и откройте http://localhost:4321
 
 ## Как собрать
 
 `pnpm build` — готовые файлы появятся в папке `dist/`.
 
-Без `PUBLIC_APP_URL` кнопки ведут на `https://crm.space`.
+Без `PUBLIC_APP_URL` кнопки ведут на `https://app.xn--l1ahr.space`.
 
 ## Как выкатывается
 

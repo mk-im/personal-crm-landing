@@ -51,4 +51,4 @@ jobs:
           rsync -az --delete -e "ssh -i $HOME/.ssh/deploy -o IdentitiesOnly=yes" \
             dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
           ssh -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" \
-            "curl -fsS -o /dev/null -w '%{http_code}\n' -H 'Host: xn--l1ahr.space' http://127.0.0.1/"
+            "test \"\$(curl -fsSk -o /dev/null -w '%{http_code}' -H 'Host: xn--l1ahr.space' https://127.0.0.1/)\" = 200"
