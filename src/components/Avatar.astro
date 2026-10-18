@@ -1,0 +1,20 @@
+---
+interface Props {
+  initials: string;
+  tone?: "blue-1" | "blue-2" | "blue-3" | "sky";
+  class?: string;
+}
+
+const { initials, tone = "blue-1", class: className } = Astro.props;
+
+const tones = {
+  "blue-1": "bg-blue-1 text-white",
+  "blue-2": "bg-blue-2 text-white",
+  "blue-3": "bg-blue-3 text-white",
+  sky: "bg-sky text-blue-2",
+};
+---
+
+<div class:list={["grid flex-none place-items-center rounded-full font-bold", tones[tone], className]}>
+  {initials}
+</div>

@@ -1,0 +1,15 @@
+---
+interface Props {
+  number: string;
+  onBlue?: boolean;
+}
+
+const { number, onBlue = false } = Astro.props;
+---
+
+<span
+  class:list={[
+    "inline-flex h-7.5 min-w-11 items-center justify-center rounded-full px-3 text-ui-13 font-bold lg:h-9 lg:min-w-13.5 lg:px-4 lg:text-ui-15",
+    onBlue ? "border border-white/30 bg-white/16 text-white" : "bg-white text-blue-1 shadow-step",
+  ]}>{number}</span
+>

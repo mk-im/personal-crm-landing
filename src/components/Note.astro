@@ -1,0 +1,12 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={["rounded-r14 bg-mist px-3.5 py-3 text-ui-13 leading-[1.4] lg:rounded-r16 lg:px-4 lg:py-3.5 lg:text-ui-15", className]}>
+  <b class="mb-1 block text-ui-11 text-blue-1 lg:text-ui-12">Заметка</b>
+  Договорились созвониться в пятницу
+</div>

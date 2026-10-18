@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@utility bg-brand {
+  background: var(--gradient-brand);
+}
+
+@layer base {
+  html {
+    line-height: normal;
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+  }
+}

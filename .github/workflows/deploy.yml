@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: landing-deploy-main
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 12.11.2
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Build
+        env:
+          PUBLIC_APP_URL: ${{ vars.PUBLIC_APP_URL || 'https://app.xn--l1ahr.space' }}
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Publish to server
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_PATH: /var/www/personal-crm-landing
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          install -m 600 /dev/null "$HOME/.ssh/deploy"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$HOME/.ssh/deploy"
+          ssh-keyscan -H "$DEPLOY_HOST" >> "$HOME/.ssh/known_hosts"
+          rsync -az --delete -e "ssh -i $HOME/.ssh/deploy -o IdentitiesOnly=yes" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
+          ssh -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" \
+            "curl -fsS -o /dev/null -w '%{http_code}\n' -H 'Host: xn--l1ahr.space' http://127.0.0.1/"

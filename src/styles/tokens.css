@@ -1,0 +1,95 @@
+/* Colors, fonts, sizes, radii and shadows are defined only here. */
+
+@theme {
+  --color-*: initial;
+  --color-blue-1: #1454fc;
+  --color-blue-2: #0432df;
+  --color-blue-3: #5b9bf5;
+  --color-blue-deep: #0a2bc0;
+  --color-sky: #afd1f5;
+  --color-mist: #e4effb;
+  --color-note: #eaf1ff;
+  --color-note-line: #c9dafe;
+  --color-ink: #0b1220;
+  --color-muted: #5a6785;
+  --color-label: #6b7893;
+  --color-line: #d3dff2;
+  --color-line-strong: #b9ccf0;
+  --color-divider: #e6ecf7;
+  --color-green: #2bd576;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-black-soft: #1a1a1a;
+
+  --font-*: initial;
+  --font-sans: "Manrope", sans-serif;
+
+  --spacing: 4px;
+  --breakpoint-lg: 1024px;
+
+  --text-*: initial;
+  --text-h1: 40px;
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1-lg: 76px;
+  --text-h1-lg--line-height: 1.04;
+  --text-h1-lg--letter-spacing: -0.035em;
+  --text-sub: 15px;
+  --text-sub--line-height: 1.5;
+  --text-sub-lg: 20px;
+  --text-sub-lg--line-height: 1.5;
+  --text-lead: 25px;
+  --text-lead--line-height: 1.28;
+  --text-lead--letter-spacing: -0.02em;
+  --text-lead-lg: 42px;
+  --text-lead-lg--line-height: 1.18;
+  --text-lead-lg--letter-spacing: -0.025em;
+  --text-body: 16px;
+  --text-body--line-height: 1.55;
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.55;
+  --text-btn: 16px;
+  --text-btn-lg: 18px;
+  --text-btn-final: 17px;
+  --text-btn-final-lg: 20px;
+  --text-ui-11: 11px;
+  --text-ui-12: 12px;
+  --text-ui-13: 13px;
+  --text-ui-14: 14px;
+  --text-ui-15: 15px;
+  --text-ui-16: 16px;
+  --text-ui-17: 17px;
+  --text-ui-18: 18px;
+  --text-ui-20: 20px;
+  --text-ui-22: 22px;
+  --text-ui-24: 24px;
+
+  --radius-*: initial;
+  --radius-r4: 4px;
+  --radius-r5: 5px;
+  --radius-r6: 6px;
+  --radius-r7: 7px;
+  --radius-r10: 10px;
+  --radius-r12: 12px;
+  --radius-r14: 14px;
+  --radius-r16: 16px;
+  --radius-r18: 18px;
+  --radius-r22: 22px;
+  --radius-r26: 26px;
+  --radius-r30: 30px;
+  --radius-r32: 32px;
+  --radius-r44: 44px;
+
+  --shadow-*: initial;
+  --shadow-glass: 0 24px 50px rgb(2 20 120 / 0.35);
+  --shadow-glass-lg: 0 30px 60px rgb(2 20 120 / 0.35);
+  --shadow-card: 0 16px 36px rgb(4 50 223 / 0.1);
+  --shadow-card-lg: 0 20px 44px rgb(4 50 223 / 0.1);
+  --shadow-step: 0 6px 16px rgb(20 84 252 / 0.12);
+}
+
+:root {
+  --gradient-brand:
+    radial-gradient(120% 60% at 50% 0%, var(--color-blue-3) 0%, transparent 60%),
+    linear-gradient(180deg, var(--color-blue-1) 0%, var(--color-blue-2) 70%, var(--color-blue-deep) 100%);
+}

@@ -1,0 +1,21 @@
+---
+import Avatar from "./Avatar.astro";
+
+interface Props {
+  initials: string;
+  name: string;
+  meta: string;
+  tone?: "blue-1" | "blue-2" | "blue-3" | "sky";
+  class?: string;
+}
+
+const { initials, name, meta, tone, class: className } = Astro.props;
+---
+
+<div class:list={["flex items-center gap-3 border-b border-divider py-2.5 last:border-b-0 lg:gap-3.5 lg:py-3.5", className]}>
+  <Avatar initials={initials} tone={tone} class="size-10 text-ui-14 lg:size-11 lg:text-ui-15" />
+  <div>
+    <div class="text-ui-15 font-bold lg:text-ui-17">{name}</div>
+    <div class="mt-0.5 text-ui-12 text-label lg:text-ui-14">{meta}</div>
+  </div>
+</div>

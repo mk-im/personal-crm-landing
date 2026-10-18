@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Личная CRM — люди, которых вы знаете</title>
+<meta name="description" content="Кто это, откуда знакомы, телефон, почта и о чём договорились. Заметка после разговора остаётся в карточке контакта.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* Variant 3: night green-black, lime accent, wide display type */
+  :root {
+    --bg: #0D100E;
+    --surface: #151A17;
+    --line: #272E29;
+    --text: #F2F5EE;
+    --muted: #9AA39B;
+    --lime: #CDF54B;
+    --font-head: "Unbounded", sans-serif;
+    --font-body: "Inter", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #000; display: flex; justify-content: center; font-family: var(--font-body); }
+  .screen {
+    width: 390px; height: 844px; position: relative; overflow: hidden;
+    background: var(--bg); color: var(--text); padding: 20px 20px 0;
+  }
+  .glow { position: absolute; width: 320px; height: 320px; left: 35px; top: -140px; background: var(--lime); filter: blur(110px); opacity: .28; border-radius: 50%; }
+  .header { position: relative; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 500; font-size: 13px; }
+  .logo i { width: 26px; height: 26px; border-radius: 8px; background: var(--lime); display: block; position: relative; }
+  .logo i::after { content: ""; position: absolute; left: 8px; top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); }
+  .pill { font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; }
+
+  h1 { position: relative; margin-top: 40px; font-family: var(--font-head); font-weight: 500; font-size: 31px; line-height: 1.12; letter-spacing: -.03em; }
+  h1 em { font-style: normal; color: var(--lime); }
+  .sub { position: relative; margin-top: 16px; font-size: 15px; line-height: 1.5; color: var(--muted); max-width: 335px; }
+  .cta {
+    position: relative; margin-top: 26px; display: flex; align-items: center; justify-content: space-between;
+    background: var(--lime); color: #0D100E; text-decoration: none;
+    font-family: var(--font-head); font-weight: 500; font-size: 15px;
+    padding: 8px 8px 8px 24px; border-radius: 999px;
+  }
+  .cta span { width: 46px; height: 46px; border-radius: 50%; background: #0D100E; color: var(--lime); display: grid; place-items: center; font-size: 18px; }
+
+  .stack { position: absolute; left: 20px; right: 20px; bottom: 0; height: 310px; }
+  .card { position: absolute; left: 0; right: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 24px 24px 0 0; padding: 18px; }
+  .card.back { top: 0; left: 18px; right: 18px; height: 140px; background: #111512; }
+  .card.front { top: 26px; height: 290px; box-shadow: 0 -20px 40px rgba(0,0,0,.5); }
+  .top { display: flex; align-items: center; gap: 12px; }
+  .av { width: 44px; height: 44px; border-radius: 50%; background: var(--lime); color: #0D100E; display: grid; place-items: center; font-family: var(--font-head); font-weight: 500; font-size: 14px; }
+  .name { font-weight: 600; font-size: 16px; }
+  .meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .fields { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .field { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; font-size: 12px; }
+  .field small { display: block; color: var(--muted); font-size: 10px; margin-bottom: 3px; }
+  .note { margin-top: 8px; border-radius: 12px; padding: 12px; background: rgba(205,245,75,.1); border: 1px solid rgba(205,245,75,.35); font-size: 13px; line-height: 1.4; }
+  .note small { display: block; color: var(--lime); font-size: 10px; margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<main class="screen">
+  <div class="glow"></div>
+  <header class="header">
+    <div class="logo"><i></i>Личная CRM</div>
+  </header>
+
+  <h1>Не теряйте <em>людей</em> и контекст разговора</h1>
+  <p class="sub">Список тех, кого вы знаете лично: кто это, откуда знакомы, телефон, почта и о чём договорились.</p>
+  <a class="cta" href="#">Открыть приложение <span>↗</span></a>
+
+  <div class="stack" aria-hidden="true">
+    <div class="card back"></div>
+    <div class="card front">
+      <div class="top">
+        <div class="av">АМ</div>
+        <div><div class="name">Анна Морозова</div><div class="meta">Митап по дизайну</div></div>
+      </div>
+      <div class="fields">
+        <div class="field"><small>Телефон</small>+7 900 000-00-00</div>
+        <div class="field"><small>Почта</small>anna@mail.ru</div>
+      </div>
+      <div class="note"><small>Заметка</small>Договорились созвониться в пятницу</div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

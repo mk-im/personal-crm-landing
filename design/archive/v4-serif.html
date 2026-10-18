@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Личная CRM — люди, которых вы знаете</title>
+<meta name="description" content="Кто это, откуда знакомы, телефон, почта и о чём договорились. Заметка после разговора остаётся в карточке контакта.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  /* Variant 4: warm paper, deep green, serif headline, pastel tiles */
+  :root {
+    --bg: #F6F0E6;
+    --green: #123021;
+    --muted: #5C6B61;
+    --peach: #FFC9B0;
+    --sage: #CFE0C8;
+    --lilac: #D9D3F2;
+    --accent: #E8643C;
+    --font-head: "Playfair Display", serif;
+    --font-body: "Golos Text", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #ddd5c6; display: flex; justify-content: center; font-family: var(--font-body); }
+  .screen { width: 390px; height: 844px; position: relative; overflow: hidden; background: var(--bg); color: var(--green); padding: 22px 22px 0; }
+  .header { display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: var(--font-head); font-weight: 600; font-size: 20px; letter-spacing: -.01em; }
+  .logo b { color: var(--accent); font-weight: 600; }
+  .badge { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--green); display: grid; place-items: center; font-size: 14px; }
+
+  h1 { margin-top: 38px; font-family: var(--font-head); font-weight: 500; font-size: 43px; line-height: 1.04; letter-spacing: -.02em; }
+  h1 em { color: var(--accent); }
+  .sub { margin-top: 16px; max-width: 320px; font-size: 15px; line-height: 1.5; color: var(--muted); }
+  .cta {
+    margin-top: 24px; display: inline-flex; align-items: center; gap: 14px;
+    background: var(--green); color: var(--bg); text-decoration: none; font-weight: 500; font-size: 16px;
+    padding: 7px 7px 7px 24px; border-radius: 999px;
+  }
+  .cta span { width: 42px; height: 42px; border-radius: 50%; background: var(--peach); color: var(--green); display: grid; place-items: center; font-size: 18px; }
+
+  .tiles { position: absolute; left: 22px; right: 22px; bottom: 22px; height: 300px; }
+  .tile { position: absolute; border-radius: 28px; padding: 18px; box-shadow: 0 10px 24px rgba(18,48,33,.10); }
+  .t1 { left: 0; top: 24px; width: 188px; height: 262px; background: var(--peach); transform: rotate(-4deg); }
+  .t2 { right: 0; top: 0; width: 172px; height: 160px; background: var(--sage); transform: rotate(3deg); }
+  .t3 { right: 6px; bottom: 0; width: 176px; height: 106px; background: var(--lilac); transform: rotate(-2deg); }
+  .av { width: 52px; height: 52px; border-radius: 50%; background: var(--bg); display: grid; place-items: center; font-family: var(--font-head); font-weight: 600; font-size: 17px; }
+  .tile .n { margin-top: 90px; font-family: var(--font-head); font-weight: 600; font-size: 24px; line-height: 1.1; }
+  .tile .m { margin-top: 6px; font-size: 12px; opacity: .75; line-height: 1.35; }
+  .tile small { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; margin-bottom: 6px; }
+  .tile .q { font-family: var(--font-head); font-style: italic; font-size: 16px; line-height: 1.25; }
+</style>
+</head>
+<body>
+<main class="screen">
+  <header class="header">
+    <div class="logo">Личная <b>CRM</b></div>
+    <div class="badge">↗</div>
+  </header>
+
+  <h1>Не теряйте <em>людей</em> и контекст разговора</h1>
+  <p class="sub">Список тех, кого вы знаете лично: кто это, откуда знакомы, телефон, почта и о чём договорились.</p>
+  <a class="cta" href="#">Открыть приложение <span>↗</span></a>
+
+  <div class="tiles" aria-hidden="true">
+    <div class="tile t1">
+      <div class="av">АМ</div>
+      <div class="n">Анна Морозова</div>
+      <div class="m">Митап по дизайну<br>+7 900 000-00-00</div>
+    </div>
+    <div class="tile t2">
+      <small>Заметка</small>
+      <div class="q">Договорились созвониться в пятницу</div>
+    </div>
+    <div class="tile t3">
+      <small>Откуда знакомы</small>
+      <div class="q">Друг брата</div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

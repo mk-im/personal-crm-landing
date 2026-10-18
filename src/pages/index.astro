@@ -1,0 +1,208 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Logo from "../components/Logo.astro";
+import CtaButton from "../components/CtaButton.astro";
+import Avatar from "../components/Avatar.astro";
+import Step from "../components/Step.astro";
+import Person from "../components/Person.astro";
+import Note from "../components/Note.astro";
+
+const lead = "mt-5 text-lead font-medium lg:mt-7 lg:text-lead-lg";
+const body = "mt-3.5 text-body lg:mt-5 lg:max-w-130 lg:text-body-lg";
+const section = "mx-auto max-w-150 px-5 py-16 lg:grid lg:max-w-320 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-10 lg:py-35";
+const lightCard = "rounded-r22 bg-white shadow-card lg:rounded-r26 lg:shadow-card-lg";
+const icon = "grid size-9.5 flex-none place-items-center rounded-r12 lg:size-13 lg:rounded-r16 [&>svg]:size-5 lg:[&>svg]:size-6.5";
+const bar = "h-2 rounded-r4 bg-line lg:h-2.5 lg:rounded-r5";
+const fieldLabel = "mb-0.75 block text-ui-11 font-medium lg:mb-1 lg:text-ui-12";
+---
+
+<Layout>
+  <!-- Hero -->
+  <header class="relative min-h-211 overflow-hidden bg-brand px-5 pt-5 text-center text-white lg:min-h-230 lg:pt-7">
+    <Logo />
+
+    <h1 class="mx-auto mt-11 text-h1 font-medium lg:mt-18 lg:max-w-225 lg:text-h1-lg">
+      Не теряйте людей и контекст разговора
+    </h1>
+    <p class="mx-auto mt-4 max-w-77.5 text-sub text-white/82 lg:mt-6 lg:max-w-150 lg:text-sub-lg">
+      Список тех, кого вы знаете лично: кто это, откуда знакомы, телефон, почта и о чём договорились.
+    </p>
+    <div class="mt-6.5 lg:mt-9">
+      <CtaButton />
+    </div>
+
+    <div class="absolute inset-x-0 bottom-0 h-82.5 text-left text-ink lg:h-100" aria-hidden="true">
+      <div class="relative mx-auto h-full max-w-150 lg:max-w-none">
+        <div class="absolute top-30 left-37.5 hidden w-67.5 -rotate-5 rounded-r26 bg-white/92 p-5 shadow-glass-lg lg:block">
+          <div class="mb-1.5 text-ui-13 font-semibold text-label">Карточка</div>
+          <div class="rounded-r14 bg-mist px-3 py-2.5 text-ui-14 font-semibold">
+            <small class="mb-0.5 block text-ui-11 font-medium text-muted">Телефон</small>+7 900 000-00-00
+          </div>
+          <div class="mt-2 rounded-r14 bg-mist px-3 py-2.5 text-ui-14 font-semibold">
+            <small class="mb-0.5 block text-ui-11 font-medium text-muted">Почта</small>anna@mail.ru
+          </div>
+        </div>
+        <div class="absolute top-22.5 right-37.5 hidden w-65 rotate-4 rounded-r26 bg-white/92 p-5 shadow-glass-lg lg:block">
+          <Note />
+        </div>
+
+        <div class="absolute inset-x-6 top-7.5 h-75 rounded-t-r26 bg-white/92 p-4 shadow-glass lg:right-auto lg:left-1/2 lg:top-10 lg:h-90 lg:w-165 lg:-translate-x-1/2 lg:rounded-t-r30 lg:px-7 lg:py-6 lg:shadow-glass-lg">
+          <div class="mb-2.5 text-ui-12 font-semibold text-label lg:mb-1.5 lg:text-ui-13">Контакты</div>
+          <Person initials="АМ" name="Анна Морозова" meta="Митап по дизайну" tone="blue-1" />
+          <Person initials="ИЛ" name="Игорь Левин" meta="Друг брата" tone="blue-3" />
+          <Person initials="МС" name="Мария Седова" meta="Соседка по даче" tone="blue-2" class="hidden lg:flex" />
+          <Note class="mt-2.5 lg:hidden" />
+        </div>
+
+        <div class="absolute top-0 left-1.5 z-10 flex -rotate-4 items-center gap-2 rounded-r16 bg-white/92 px-3.5 py-2.5 text-ui-12 font-bold shadow-glass lg:left-1/2 lg:-ml-92.5 lg:gap-2.5 lg:rounded-r18 lg:px-4.5 lg:py-3 lg:text-ui-14 lg:shadow-glass-lg">
+          <span class="grid size-5.5 place-items-center rounded-full bg-green text-ui-12 text-white lg:size-6.5 lg:text-ui-14">✓</span>Сохранено
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Problem -->
+    <section class={section}>
+      <div>
+        <Step number="01" />
+        <p class={lead}>
+          Имя лежит в телефоне, переписка — в мессенджере, а договорённость помните только вы.
+        </p>
+        <p class:list={[body, "text-muted"]}>Через месяц уже неясно, откуда вы знакомы и что обещали.</p>
+      </div>
+
+      <div class="relative mt-9 h-57.5 lg:mt-0 lg:h-105" aria-hidden="true">
+        <div class="absolute inset-x-7.5 inset-y-10 rounded-full border-[1.5px] border-dashed border-sky lg:inset-x-12.5 lg:inset-y-15 lg:border-2"></div>
+
+        <div class:list={[lightCard, "absolute top-2.5 left-0 flex w-42.5 -rotate-5 items-center gap-2.5 p-3.5 lg:top-7.5 lg:left-2.5 lg:w-70 lg:gap-4 lg:p-5"]}>
+          <div class:list={[icon, "bg-mist text-blue-1"]}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><path d="M11 18h2"></path></svg>
+          </div>
+          <div class="flex-1">
+            <div class:list={[bar, "w-4/5 bg-line-strong"]}></div>
+            <div class:list={[bar, "mt-1.5 w-11/20 lg:mt-2"]}></div>
+          </div>
+        </div>
+
+        <div class:list={[lightCard, "absolute top-12.5 right-0 w-45 rotate-4 p-3.5 lg:top-27.5 lg:w-75 lg:p-5"]}>
+          <div class:list={[icon, "bg-mist text-blue-1"]}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+          </div>
+          <div class="mt-2.5 rounded-r14 rounded-bl-r4 bg-mist px-3 py-2.5 lg:mt-3.5 lg:rounded-r18 lg:rounded-bl-r6 lg:px-4 lg:py-3.5">
+            <div class:list={[bar, "w-9/10"]}></div>
+            <div class:list={[bar, "mt-1.5 w-3/5 lg:mt-2"]}></div>
+          </div>
+        </div>
+
+        <div class:list={[lightCard, "absolute bottom-0 left-17.5 flex w-37.5 -rotate-2 items-center gap-2.5 p-3.5 lg:bottom-2.5 lg:left-30 lg:w-62.5 lg:gap-4 lg:p-5"]}>
+          <div class:list={[icon, "bg-blue-1 text-ui-18 font-bold text-white lg:text-ui-24"]}>?</div>
+          <div class="flex-1">
+            <div class:list={[bar, "w-17/20"]}></div>
+            <div class:list={[bar, "mt-1.5 w-1/2 lg:mt-2"]}></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="mx-3 overflow-hidden rounded-r32 bg-brand px-5 pt-12 pb-5 text-white lg:mx-10 lg:rounded-r44 lg:px-10 lg:py-27.5">
+      <div class="mx-auto max-w-140 lg:grid lg:max-w-280 lg:grid-cols-2 lg:items-center lg:gap-20">
+        <div>
+          <Step number="02" onBlue />
+          <p class={lead}>Личная CRM — карточки людей, которых вы знаете.</p>
+          <p class:list={[body, "text-white/82"]}>
+            Открыли список, добавили контакт, после разговора дописали заметку. В карточке остаются телефон, почта, откуда знакомы и о чём договорились. Тот же адрес в другом браузере показывает те же контакты.
+          </p>
+        </div>
+
+        <div aria-hidden="true">
+          <div class:list={[lightCard, "mt-8 p-4.5 text-ink lg:mt-0 lg:p-6.5"]}>
+            <div class="flex items-center gap-3 border-b border-divider pb-3.5 lg:gap-4 lg:pb-4.5">
+              <Avatar initials="АМ" class="size-13 text-ui-17 lg:size-16 lg:text-ui-20" />
+              <div class="text-ui-18 font-bold lg:text-ui-22">Анна Морозова</div>
+              <div class="ml-auto grid size-8.5 place-items-center rounded-full bg-green text-ui-15 text-white lg:size-10 lg:text-ui-18">✓</div>
+            </div>
+            <div class="mt-3.5 grid grid-cols-2 gap-2 text-ui-13 font-semibold lg:mt-4.5 lg:gap-2.5 lg:text-ui-16">
+              <div class="rounded-r14 bg-mist px-3 py-2.5 whitespace-nowrap lg:rounded-r16 lg:px-4 lg:py-3.5">
+                <small class:list={[fieldLabel, "text-muted"]}>Телефон</small>+7 900 000-00-00
+              </div>
+              <div class="rounded-r14 bg-mist px-3 py-2.5 whitespace-nowrap lg:rounded-r16 lg:px-4 lg:py-3.5">
+                <small class:list={[fieldLabel, "text-muted"]}>Почта</small>anna@mail.ru
+              </div>
+              <div class="col-span-2 rounded-r14 border border-note-line bg-note px-3 py-2.5 lg:rounded-r16 lg:px-4 lg:py-3.5">
+                <small class:list={[fieldLabel, "text-blue-1"]}>Откуда знакомы</small>Митап по дизайну
+              </div>
+              <div class="col-span-2 rounded-r14 border border-note-line bg-note px-3 py-2.5 lg:rounded-r16 lg:px-4 lg:py-3.5">
+                <small class:list={[fieldLabel, "text-blue-1"]}>О чём договорились</small>Созвониться в пятницу
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-center gap-2.5 lg:mt-5 lg:gap-3.5">
+            {[0, 1].map(() => (
+              <div class="h-18.5 w-30 rounded-r14 border border-white/30 bg-white/14 p-2.5 lg:h-25 lg:w-42.5 lg:rounded-r18 lg:p-3.5">
+                <div class="mb-2.5 flex gap-1 lg:mb-3.5 lg:gap-1.25">
+                  <b class="block size-1.25 rounded-full bg-white/70 lg:size-1.5"></b>
+                  <b class="block size-1.25 rounded-full bg-white/70 lg:size-1.5"></b>
+                  <b class="block size-1.25 rounded-full bg-white/70 lg:size-1.5"></b>
+                </div>
+                <div class="h-1.5 rounded-r4 bg-white/55 lg:h-2"></div>
+                <div class="mt-1.5 h-1.5 w-7/10 rounded-r4 bg-white/55 lg:mt-2 lg:h-2"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefit -->
+    <section class={section}>
+      <div>
+        <Step number="03" />
+        <p class={lead}>
+          Перед следующим разговором карточка уже напоминает, кто этот человек и о чём вы договорились.
+        </p>
+        <p class:list={[body, "text-muted"]}>Знакомства и контекст общения остаются в одном списке.</p>
+      </div>
+
+      <div class="mt-9 lg:order-first lg:mt-0 lg:max-w-130" aria-hidden="true">
+        <div class:list={[lightCard, "relative p-4 lg:px-6 lg:py-5.5"]}>
+          <div class="absolute -top-3.5 -right-1.5 grid size-11 rotate-8 place-items-center rounded-r14 bg-black text-white lg:-top-4.5 lg:-right-3.5 lg:size-14 lg:rounded-r18 [&>svg]:size-5 lg:[&>svg]:size-6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>
+          </div>
+          <Person initials="АМ" name="Анна Морозова" meta="Митап по дизайну" class="pt-0 pb-3 lg:pt-0 lg:pb-4" />
+          <Note class="mt-3" />
+        </div>
+
+        <div class:list={[lightCard, "mt-4 flex items-center px-3.5 py-3 lg:mt-4.5 lg:px-5 lg:py-4"]}>
+          <Avatar initials="АМ" tone="blue-1" class="size-9 border-2 border-white text-ui-12 lg:size-11 lg:border-3 lg:text-ui-15" />
+          <Avatar initials="ИЛ" tone="blue-3" class="-ml-2 size-9 border-2 border-white text-ui-12 lg:-ml-2.5 lg:size-11 lg:border-3 lg:text-ui-15" />
+          <Avatar initials="МС" tone="blue-2" class="-ml-2 size-9 border-2 border-white text-ui-12 lg:-ml-2.5 lg:size-11 lg:border-3 lg:text-ui-15" />
+          <Avatar initials="ОК" tone="sky" class="-ml-2 size-9 border-2 border-white text-ui-12 lg:-ml-2.5 lg:size-11 lg:border-3 lg:text-ui-15" />
+          <div class="ml-auto grid h-7 place-items-center rounded-full bg-mist px-3 text-ui-13 font-bold text-blue-1 lg:h-8.5 lg:px-4 lg:text-ui-15">+996</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="relative mx-3 mb-3 overflow-hidden rounded-r32 bg-brand px-5 pt-14 pb-6 text-center text-white lg:mx-10 lg:mb-10 lg:rounded-r44 lg:px-0 lg:pt-27.5 lg:pb-11">
+      <div class="absolute -top-50 left-1/2 size-90 -translate-x-1/2 rounded-full border border-white/20 lg:-top-105 lg:size-175" aria-hidden="true"></div>
+      <div class="absolute -top-70 left-1/2 size-130 -translate-x-1/2 rounded-full border border-white/20 lg:-top-145 lg:size-250" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-110">
+        <div class="flex justify-center" aria-hidden="true">
+          <Avatar initials="АМ" tone="blue-2" class="size-12 border-3 border-white/90 text-ui-14 lg:size-16 lg:border-4 lg:text-ui-18" />
+          <Avatar initials="ИЛ" tone="blue-3" class="-ml-2.5 size-12 border-3 border-white/90 text-ui-14 lg:-ml-3.5 lg:size-16 lg:border-4 lg:text-ui-18" />
+          <Avatar initials="МС" tone="sky" class="-ml-2.5 size-12 border-3 border-white/90 text-ui-14 lg:-ml-3.5 lg:size-16 lg:border-4 lg:text-ui-18" />
+        </div>
+        <div class="mt-7 lg:mt-9">
+          <CtaButton variant="final" />
+        </div>
+        <div class="mt-10 lg:mt-22.5">
+          <Logo />
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Первый экран — 4 варианта</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #E9E9EC; font-family: system-ui, sans-serif; padding: 24px; color: #222; }
+  h1 { font-size: 18px; margin-bottom: 18px; }
+  .grid { display: flex; gap: 20px; flex-wrap: wrap; }
+  figure { width: 273px; }
+  .frame { width: 273px; height: 591px; border-radius: 28px; overflow: hidden; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+  iframe { width: 390px; height: 844px; border: 0; transform: scale(.7); transform-origin: 0 0; }
+  figcaption { margin-top: 10px; font-size: 13px; line-height: 1.4; }
+  figcaption b { display: block; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>Личная CRM — первый экран, мобильная ширина 390 px</h1>
+<div class="grid">
+  <figure><div class="frame"><iframe src="v1-cream.html"></iframe></div><figcaption><b>1. Крем и бумага</b>Onest + IBM Plex Mono, оранжевый акцент</figcaption></figure>
+  <figure><div class="frame"><iframe src="../mobile.html"></iframe></div><figcaption><b>2. Электрический синий</b>Manrope, стеклянные карточки</figcaption></figure>
+  <figure><div class="frame"><iframe src="v3-dark.html"></iframe></div><figcaption><b>3. Ночь и лайм</b>Unbounded + Inter, тёмная тема</figcaption></figure>
+  <figure><div class="frame"><iframe src="v4-serif.html"></iframe></div><figcaption><b>4. Тёплая бумага и засечки</b>Playfair Display + Golos Text, пастельные плитки</figcaption></figure>
+</div>
+</body>
+</html>
