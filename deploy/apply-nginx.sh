@@ -116,6 +116,9 @@ run_root() {
 
 if [[ "$(id -u)" -ne 0 ]] && ! sudo -n true >/dev/null 2>&1 && ! sudo -n nginx -t >/dev/null 2>&1; then
   echo "Cannot reload nginx without a password. The landing nginx config was not changed." >&2
+  echo "On the server, run:" >&2
+  echo "sudo cp $HOME/personal-crm-landing-nginx/nginx-landing.conf /etc/nginx/sites-available/crmc-landing.conf" >&2
+  echo "sudo nginx -t && sudo systemctl reload nginx" >&2
   echo "User: $(id)" >&2
   echo "Allowed sudo commands:" >&2
   sudo -n -l >&2 || true
