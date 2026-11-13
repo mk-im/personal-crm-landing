@@ -31,7 +31,7 @@ jobs:
 
       - name: Build
         env:
-          PUBLIC_APP_URL: ${{ vars.PUBLIC_APP_URL || 'https://app.xn--l1ahr.space' }}
+          PUBLIC_APP_URL: ${{ vars.PUBLIC_APP_URL || 'https://app.crmc.space' }}
         run: |
           pnpm install --frozen-lockfile
           pnpm build
@@ -51,4 +51,4 @@ jobs:
           rsync -az --delete -e "ssh -i $HOME/.ssh/deploy -o IdentitiesOnly=yes" \
             dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
           ssh -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" \
-            "test \"\$(curl -fsSk -o /dev/null -w '%{http_code}' -H 'Host: xn--l1ahr.space' https://127.0.0.1/)\" = 200"
+            "test \"\$(curl -fsSk -o /dev/null -w '%{http_code}' -H 'Host: crmc.space' https://127.0.0.1/)\" = 200"
