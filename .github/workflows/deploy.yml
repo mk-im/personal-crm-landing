@@ -52,3 +52,22 @@ jobs:
             dist/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
           ssh -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" \
             "test \"\$(curl -fsSk -o /dev/null -w '%{http_code}' -H 'Host: crmc.space' https://127.0.0.1/)\" = 200"
+
+      - name: Apply landing nginx config
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.ssh"
+          install -m 600 /dev/null "$HOME/.ssh/deploy"
+          printf '%s\n' "$DEPLOY_SSH_KEY" > "$HOME/.ssh/deploy"
+          ssh-keyscan -H "$DEPLOY_HOST" >> "$HOME/.ssh/known_hosts"
+          ssh -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" \
+            "mkdir -p ~/personal-crm-landing-nginx"
+          scp -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes \
+            deploy/nginx-landing.conf deploy/apply-nginx.sh \
+            "$DEPLOY_USER@$DEPLOY_HOST:personal-crm-landing-nginx/"
+          ssh -i "$HOME/.ssh/deploy" -o IdentitiesOnly=yes "$DEPLOY_USER@$DEPLOY_HOST" \
+            "bash ~/personal-crm-landing-nginx/apply-nginx.sh ~/personal-crm-landing-nginx/nginx-landing.conf"
