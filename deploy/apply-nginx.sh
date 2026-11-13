@@ -87,8 +87,48 @@ fi
 
 assert_landing_source "$SRC"
 
-if ! sudo -n true 2>/dev/null; then
-  echo "Passwordless sudo is not available. The landing nginx config was not changed." >&2
+headers_look_applied() {
+  local dump server
+  dump="$(curl -skI --max-time 20 --resolve crmc.space:443:127.0.0.1 https://crmc.space/ | tr -d '\r' || true)"
+  server="$(printf '%s\n' "$dump" | awk -F': ' 'tolower($1)=="server" { print $2 }')"
+  [[ "$server" == "nginx" ]] || return 1
+  printf '%s\n' "$dump" | grep -qi "strict-transport-security: max-age=31536000$" || return 1
+  printf '%s\n' "$dump" | grep -q "frame-ancestors 'none'" || return 1
+  printf '%s\n' "$dump" | grep -q "fonts.googleapis.com" || return 1
+  printf '%s\n' "$dump" | grep -qi "^x-frame-options: DENY$" || return 1
+  printf '%s\n' "$dump" | grep -qi "^x-content-type-options: nosniff$" || return 1
+  printf '%s\n' "$dump" | grep -qi "^referrer-policy:" || return 1
+  printf '%s\n' "$dump" | grep -qi "^permissions-policy:" || return 1
+}
+
+if headers_look_applied; then
+  echo "Landing security headers are already in place."
+  exit 0
+fi
+
+run_root() {
+  if [[ "$(id -u)" -eq 0 ]]; then
+    "$@"
+  else
+    sudo -n "$@"
+  fi
+}
+
+if [[ "$(id -u)" -ne 0 ]] && ! sudo -n true >/dev/null 2>&1 && ! sudo -n nginx -t >/dev/null 2>&1; then
+  echo "Cannot reload nginx without a password. The landing nginx config was not changed." >&2
+  echo "User: $(id)" >&2
+  echo "Allowed sudo commands:" >&2
+  sudo -n -l >&2 || true
+  echo "Nginx files:" >&2
+  for file in /etc/nginx/nginx.conf /etc/nginx/sites-enabled/* /etc/nginx/sites-available/* /etc/nginx/conf.d/*; do
+    [[ -e "$file" ]] || continue
+    echo "-- $file" >&2
+    if [[ -r "$file" ]]; then
+      grep -n "server_name" "$file" >&2 || true
+    else
+      echo "(not readable)" >&2
+    fi
+  done
   exit 1
 fi
 
@@ -99,7 +139,7 @@ if ! flock -n 9; then
 fi
 
 err="$(mktemp)"
-if ! dump="$(sudo -n nginx -T 2>"$err")"; then
+if ! dump="$(run_root nginx -T 2>"$err")"; then
   echo "nginx -T failed. Nothing was changed." >&2
   cat "$err" >&2
   rm -f "$err"
@@ -147,26 +187,26 @@ case "$real" in
 esac
 
 backup="$(mktemp)"
-sudo cp -a "$real" "$backup"
+run_root cp -a "$real" "$backup"
 
 restore() {
-  sudo cp -a "$backup" "$real"
-  sudo nginx -t
-  if ! sudo systemctl reload nginx; then
-    sudo nginx -s reload
+  run_root cp -a "$backup" "$real"
+  run_root nginx -t
+  if ! run_root systemctl reload nginx; then
+    run_root nginx -s reload
   fi
 }
 
-sudo cp "$SRC" "$real"
-if ! sudo nginx -t; then
+run_root cp "$SRC" "$real"
+if ! run_root nginx -t; then
   echo "nginx rejected the landing config. Restoring the previous file." >&2
   restore
   rm -f "$backup"
   exit 1
 fi
 
-if ! sudo systemctl reload nginx; then
-  sudo nginx -s reload
+if ! run_root systemctl reload nginx; then
+  run_root nginx -s reload
 fi
 
 header_dump="$(curl -skI --max-time 20 --resolve crmc.space:443:127.0.0.1 https://crmc.space/ | tr -d '\r' || true)"
