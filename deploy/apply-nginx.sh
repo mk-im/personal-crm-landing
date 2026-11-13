@@ -120,6 +120,7 @@ if [[ "$(id -u)" -ne 0 ]] && ! sudo -n true >/dev/null 2>&1 && ! sudo -n nginx -
   echo "Allowed sudo commands:" >&2
   sudo -n -l >&2 || true
   echo "Nginx files:" >&2
+  ls -ld /etc/nginx/sites-enabled/* /etc/nginx/sites-available/* >&2 || true
   for file in /etc/nginx/nginx.conf /etc/nginx/sites-enabled/* /etc/nginx/sites-available/* /etc/nginx/conf.d/*; do
     [[ -e "$file" ]] || continue
     echo "-- $file" >&2
