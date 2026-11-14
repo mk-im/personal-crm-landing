@@ -101,6 +101,19 @@ headers_look_applied() {
   printf '%s\n' "$dump" | grep -qi "^permissions-policy:" || return 1
 }
 
+# A previous apply copied its backup as root, so the deploy user cannot delete it.
+leftover="/tmp/tmp.dnEzlqhYcn"
+if [[ -e "$leftover" ]] && ! rm -f "$leftover" 2>/dev/null; then
+  if docker info >/dev/null 2>&1; then
+    if ! docker image inspect alpine:3.20 >/dev/null 2>&1; then
+      docker pull -q alpine:3.20 >/dev/null
+    fi
+    if docker run --rm -v /:/host alpine:3.20 chroot /host rm -f "$leftover"; then
+      echo "Removed the leftover root-owned backup."
+    fi
+  fi
+fi
+
 if headers_look_applied; then
   echo "Landing security headers are already in place."
   exit 0
@@ -187,10 +200,21 @@ case "$real" in
 esac
 
 backup="$(mktemp)"
-run_root cp -a "$real" "$backup"
+# Copy into the existing temp file so it stays owned by the deploy user.
+run_root cp "$real" "$backup"
+
+remove_backup() {
+  if [[ ! -e "$backup" ]]; then
+    return 0
+  fi
+  if rm -f "$backup"; then
+    return 0
+  fi
+  run_root rm -f "$backup"
+}
 
 restore() {
-  run_root cp -a "$backup" "$real"
+  run_root cp "$backup" "$real"
   run_root nginx -t
   if ! run_root systemctl reload nginx; then
     run_root nginx -s reload
@@ -201,7 +225,7 @@ run_root cp "$SRC" "$real"
 if ! run_root nginx -t; then
   echo "nginx rejected the landing config. Restoring the previous file." >&2
   restore
-  rm -f "$backup"
+  remove_backup
   exit 1
 fi
 
@@ -226,7 +250,7 @@ fail() {
   echo "$1" >&2
   echo "Restoring the previous landing config." >&2
   restore
-  rm -f "$backup"
+  remove_backup
   exit 1
 }
 
@@ -299,5 +323,5 @@ if printf '%s\n' "$redirect_dump" | grep -qi '^strict-transport-security:'; then
   fail "HSTS was sent over plain HTTP."
 fi
 
-rm -f "$backup"
+remove_backup
 echo "Landing nginx config applied: $real"
