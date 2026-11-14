@@ -18,13 +18,6 @@
 
 Пуш в ветку `main` собирает страницу в GitHub Actions и копирует папку `dist/` на сервер. Nginx отдаёт эту папку по адресу [crmc.space](https://crmc.space). Главная должна отвечать 200.
 
-Настройки nginx только для лендинга лежат в `deploy/nginx-landing.conf`. Там заголовки безопасности, и nginx не показывает свою версию. Конфиг приложения на том же сервере не меняется.
-
-Поставить этот файл в nginx может только человек: сервер спросит пароль. На сервере выполните:
-
-```
-sudo cp /home/crm/personal-crm-landing-nginx/nginx-landing.conf /etc/nginx/sites-available/crmc-landing.conf
-sudo nginx -t && sudo systemctl reload nginx
-```
+Настройки nginx только для лендинга лежат в `deploy/nginx-landing.conf`. Там заголовки безопасности, и nginx не показывает свою версию. При выкладке этот файл сам ставится в nginx лендинга. Конфиг приложения на том же сервере не меняется.
 
 Чтобы выкатить новую версию, отправьте изменения в `main`.
