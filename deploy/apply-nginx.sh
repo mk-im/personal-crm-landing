@@ -101,19 +101,6 @@ headers_look_applied() {
   printf '%s\n' "$dump" | grep -qi "^permissions-policy:" || return 1
 }
 
-# A previous apply copied its backup as root, so the deploy user cannot delete it.
-leftover="/tmp/tmp.dnEzlqhYcn"
-if [[ -e "$leftover" ]] && ! rm -f "$leftover" 2>/dev/null; then
-  if docker info >/dev/null 2>&1; then
-    if ! docker image inspect alpine:3.20 >/dev/null 2>&1; then
-      docker pull -q alpine:3.20 >/dev/null
-    fi
-    if docker run --rm -v /:/host alpine:3.20 chroot /host rm -f "$leftover"; then
-      echo "Removed the leftover root-owned backup."
-    fi
-  fi
-fi
-
 if headers_look_applied; then
   echo "Landing security headers are already in place."
   exit 0
