@@ -106,35 +106,31 @@ if headers_look_applied; then
   exit 0
 fi
 
-run_root() {
-  if [[ "$(id -u)" -eq 0 ]]; then
-    "$@"
-  else
-    sudo -n "$@"
-  fi
-}
-
-if [[ "$(id -u)" -ne 0 ]] && ! sudo -n true >/dev/null 2>&1 && ! sudo -n nginx -t >/dev/null 2>&1; then
-  echo "Cannot reload nginx without a password. The landing nginx config was not changed." >&2
-  echo "On the server, run:" >&2
-  echo "sudo cp $HOME/personal-crm-landing-nginx/nginx-landing.conf /etc/nginx/sites-available/crmc-landing.conf" >&2
-  echo "sudo nginx -t && sudo systemctl reload nginx" >&2
-  echo "User: $(id)" >&2
-  echo "Allowed sudo commands:" >&2
-  sudo -n -l >&2 || true
-  echo "Nginx files:" >&2
-  ls -ld /etc/nginx/sites-enabled/* /etc/nginx/sites-available/* >&2 || true
-  for file in /etc/nginx/nginx.conf /etc/nginx/sites-enabled/* /etc/nginx/sites-available/* /etc/nginx/conf.d/*; do
-    [[ -e "$file" ]] || continue
-    echo "-- $file" >&2
-    if [[ -r "$file" ]]; then
-      grep -n "server_name" "$file" >&2 || true
-    else
-      echo "(not readable)" >&2
-    fi
-  done
+root_mode="none"
+if [[ "$(id -u)" -eq 0 ]]; then
+  root_mode="direct"
+elif sudo -n true >/dev/null 2>&1; then
+  root_mode="sudo"
+elif docker info >/dev/null 2>&1; then
+  root_mode="docker"
+  echo "sudo asks for a password. Applying the landing file through docker."
+else
+  echo "Cannot reload nginx without a password, and docker is not usable. The landing nginx config was not changed." >&2
   exit 1
 fi
+
+run_root() {
+  case "$root_mode" in
+    direct) "$@" ;;
+    sudo) sudo -n "$@" ;;
+    docker)
+      if ! docker image inspect alpine:3.20 >/dev/null 2>&1; then
+        docker pull -q alpine:3.20 >/dev/null
+      fi
+      docker run --rm --pid host -v /:/host alpine:3.20 chroot /host "$@"
+      ;;
+  esac
+}
 
 exec 9>/tmp/personal-crm-landing-nginx.lock
 if ! flock -n 9; then
